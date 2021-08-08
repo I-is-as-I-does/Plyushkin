@@ -2,14 +2,14 @@
 
 namespace SSITU\Plyushkin;
 
-use \SSITU\Blueprints;
+use \SSITU\Blueprints\Log;
 use \SSITU\Jack;
 
-class Plyushkin implements Blueprints\FlexLogsInterface
+class Plyushkin implements Log\FlexLogsInterface
 
 {
 
-    use Blueprints\FlexLogsTrait;
+    use Log\FlexLogsTrait;
 
     protected $whitelist = [
         "jpg" => "image/jpeg",
@@ -136,7 +136,7 @@ class Plyushkin implements Blueprints\FlexLogsInterface
 
     private function confirmedMime(string $cachePath)
     {
-        if (!array_key_exists($cachePath, $this->mimeMap)) {
+        if (!array_key_exists($cachePath, $this->confirmedMimes)) {
             $this->confirmedMimes[$cachePath] = $this->processConfirmedMime($cachePath);
         }
         return $this->confirmedMimes[$cachePath];
