@@ -41,7 +41,7 @@ class Plyushkin implements Log\FlexLogsInterface
        
     }
 
-    public function outputFileCache(string $cachePath)
+    public function outputCacheFile(string $cachePath)
     {
         $start = $this->startOutput($this->confirmedMime($cachePath));
         if ($start) {
@@ -177,17 +177,17 @@ class Plyushkin implements Log\FlexLogsInterface
             $this->log('warning', 'ext-not-supported', ['ext' => $ext]);
             return false;
         }
-        return $this->defaultWhitelist[$ext];
+        return $this->whitelist[$ext];
     }
 
     private function isSupportedMime(string $mime)
     {
-        return in_array($mime, $this->defaultWhitelist);
+        return in_array($mime, $this->whitelist);
     }
 
     private function isSupportedExt(string $ext)
     {
-        return array_key_exists($ext, $this->defaultWhitelist);
+        return array_key_exists($ext, $this->whitelist);
     }
 
     private function canSave(string $buffer, string $cachePath)
